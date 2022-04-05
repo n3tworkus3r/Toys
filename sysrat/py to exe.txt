@@ -1,0 +1,5 @@
+pyinstaller "sysrat (cut).py" -F -n sysrat --icon=sys.ico
+
+pyinstaller "sysrat (cut).py" -F -n sysrat -w
+
+# -w - hide window

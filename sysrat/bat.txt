@@ -1,0 +1,5 @@
+@echo on
+set file=zzz.txt
+set folder=fff
+set listfile=host.txt
+for /F %%i in (%listfile%) do xcopy %file% %%i\%folder%\ /Y

@@ -7,17 +7,49 @@ from ftplib import FTP
 #HOST = 'ftp.cse.buffalo.edu'
 #PORT = 12345
 #ftp.connect(HOST, PORT)
-##################################
+##############################################
+############## CONNECT TO FTP ################
+##############################################
+#session = FTP(('143.244.145.116',2121),'Y7V','PSWD')
+
+#ftp = FTP('143.244.145.116:8008')
+#print(ftp.login())
+
+session = FTP()
+HOST = '143.244.145.116'
+PORT = 2121
+
+try:
+    session.connect(HOST, PORT)
+    session.login('Y7V','PSWD')
+
+    print('Client connected to host {0}'.format(HOST))
+
+    filename = '19.jpg'
+    file = open('C:\\Users\\US3R\\Desktop\\{0}'.format(filename), 'rb')  # file to send
+    session.storbinary('STOR ' + filename, file)
+    print('File was sended')
+    #data = ftp.retrlines('LIST')
+    #print(data)
+
+except:
+    print('CONNECT ERROR!!!')
 
 
+
+
+
+
+
+"""
 
 
 def ftp_upload(ftp_obj, path, ftype='TXT'):
-    """
-    Функция для загрузки файлов на FTP-сервер
-    @param ftp_obj: Объект протокола передачи файлов
-    @param path: Путь к файлу для загрузки
-    """
+
+    #Функция для загрузки файлов на FTP-сервер
+    #@param ftp_obj: Объект протокола передачи файлов
+    #@param path: Путь к файлу для загрузки
+
     if ftype == 'TXT':
         with open(path) as fobj:
             ftp.storlines('STOR ' + path, fobj)
@@ -28,7 +60,7 @@ def ftp_upload(ftp_obj, path, ftype='TXT'):
 
 if __name__ == '__main__':
     #ftp = FTP('127.0.0.1:8000')
-    ftp = FTP.connect(self='', host='', port=8000)
+    ftp = FTP.connect(self='143.244.145.116:8000', host='', port=8000)
     #ftp.login()
 
     file_path = 'C:\\Users\\US3R\\Desktop\\upload.txt'
@@ -38,6 +70,9 @@ if __name__ == '__main__':
     #ftp_upload(ftp, pdf_path, ftype='PDF')
 
     ftp.quit()
+
+"""
+
 
 
 

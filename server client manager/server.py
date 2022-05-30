@@ -9,9 +9,9 @@ from pyftpdlib.servers import FTPServer
 ######################################
 
 PORT = 8000
-server_address = '10.1.18.200'
+#server_address = '10.1.18.200'
 #server_address = '157.245.7.127'
-#server_address = 'localhost'
+server_address = 'localhost'
 
 manager_address = ''
 client_list = []

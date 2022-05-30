@@ -11,9 +11,9 @@ from PIL import ImageGrab  # SCREENSHOTS
 ######################################
 
 #server_address = '10.1.1.88'
-server_address = '10.1.18.200'
+#server_address = '10.1.18.200'
 #server_address = '157.245.7.127'
-#server_address = '127.0.0.1'
+server_address = '127.0.0.1'
 
 server_port = 8000
 server = server_address, server_port

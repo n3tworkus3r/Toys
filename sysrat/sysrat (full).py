@@ -5,8 +5,9 @@ pip install opencv-python
 pip3 install python-opencv
 pip3 install pytelegrambotapi
 pip3 install pypiwin32
-#pip3 install pyaudio # реализации с аудио пока нет
 pip install pillow
+#pip3 install pyaudio # реализации с аудио пока нет
+
 '''
 
 ##############################

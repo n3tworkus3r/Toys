@@ -1,36 +1,22 @@
 from ftplib import FTP
 
-##################################
-######## FOR UNUSUAL PORT ########
-##################################
-#ftp = FTP()
-#HOST = 'ftp.cse.buffalo.edu'
-#PORT = 12345
-#ftp.connect(HOST, PORT)
-##############################################
-############## CONNECT TO FTP ################
-##############################################
-#session = FTP(('143.244.145.116',2121),'Y7V','PSWD')
-
-#ftp = FTP('143.244.145.116:8008')
-#print(ftp.login())
 
 session = FTP()
-HOST = '143.244.145.116'
-PORT = 2121
+HOST = '157.245.7.127'
+PORT = 60001
 
 try:
     session.connect(HOST, PORT)
-    session.login('Y7V','PSWD')
+    session.login('Y7V','PSWDF')
 
     print('Client connected to host {0}'.format(HOST))
 
-    filename = '19.jpg'
-    file = open('C:\\Users\\US3R\\Desktop\\{0}'.format(filename), 'rb')  # file to send
-    session.storbinary('STOR ' + filename, file)
+    #filename = '19.jpg'
+    #file = open('C:\\Users\\US3R\\Desktop\\{0}'.format(filename), 'rb')  # file to send
+    #session.storbinary('STOR ' + filename, file)
     print('File was sended')
-    #data = ftp.retrlines('LIST')
-    #print(data)
+    data = session.retrlines('LIST')
+    print(data)
 
 except:
     print('CONNECT ERROR!!!')

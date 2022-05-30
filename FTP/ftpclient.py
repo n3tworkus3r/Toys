@@ -7,7 +7,7 @@ PORT = 60001
 
 try:
     session.connect(HOST, PORT)
-    session.login('Y7V','PSWDF')
+    session.login('Y7V','PSWD')
 
     print('Client connected to host {0}'.format(HOST))
 

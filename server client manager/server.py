@@ -11,7 +11,7 @@ from pyftpdlib.servers import FTPServer
 PORT = 8000
 #server_address = '10.1.18.200'
 #server_address = '157.245.7.127'
-server_address = 'localhost'
+server_address = '127.0.0.1'
 
 manager_address = ''
 client_list = []
@@ -23,9 +23,6 @@ FTP_PASSWORD = "PSWD"
 #FTP_DIRECTORY = "/FTP"
 FTP_DIRECTORY = "D:\\FTP"
 ftp_address = server_address, FTP_PORT
-
-
-
 
 
 ######################################
@@ -56,13 +53,11 @@ def ftp():
 ########## SERVER CREATING ###########
 ######################################
 
-
 thread = threading.Thread(target=ftp)
 thread.start()
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_socket.bind((server_address, PORT))
-#server_socket.bind(('157.245.7.127', PORT))
 
 print(f'Server started at port {PORT}')
 
@@ -70,6 +65,9 @@ while True:
   data, address = server_socket.recvfrom(1024)
   message = data.decode()
 
+  ########## CONNECTION CHECK ##########
+  if message == '[#]':
+    server_socket.sendto(b'Connection successful!', manager_address)
   ########### NEW CONNECTION ###########
   if address not in client_list and 'Alias' in message:
     print(f' {message[6:]}, {address[0]}, {address[1]} connected')
@@ -88,7 +86,7 @@ while True:
   if 'select' in message:
     text = message.split(' ')
     selected_client = text[3], int(text[4])
-    server_socket.sendto(f'SELECTED: {selected_client}'.encode(), manager_address)
+    server_socket.sendto(f'\n\tSELECTED: {selected_client}\n'.encode(), manager_address)
   ########## SEND TO CLIENT ############
   if 'send' in message:
     text = message.split(' ')

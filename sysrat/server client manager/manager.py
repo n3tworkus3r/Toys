@@ -9,8 +9,9 @@ import time
 
 alias = 'Manager'
 сonnection_established = False
+server_address = '10.1.19.139'
 #server_address = '10.1.18.200'
-server_address = '127.0.0.1'
+#server_address = '127.0.0.1'
 #server_address = '157.245.7.127'
 server_port = 8000
 
